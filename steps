@@ -1,0 +1,140 @@
+Steps:
+1. Install VM
+2. Install Ubuntu
+3. Set-up VM
+4. Set-up terminal environment
+5. Update Package Manager
+6. Install Docker (29 Nov chat)
+7. Install Docker Compose
+9. Write the files
+
+Common docker commands:
+docker build: Used to build a Docker image from a Dockerfile.
+docker run: Used to run a Docker container based on a Docker image.
+docker pull: Used to pull a Docker image from a registry, such as Docker Hub.
+docker push: Used to push a Docker image to a registry.
+docker ps: Used to list the running Docker containers on a system.
+docker stop: Used to stop a running Docker container.
+docker rm: Used to remove a Docker container.
+docker rmi: Used to remove a Docker image.
+docker exec: Used to execute a command in a running Docker container.
+docker logs: Used to view the logs for a Docker container.
+
+Docker compose commands:
+up: Create and start containers
+down: Stop and remove containers, networks, images, and volumes
+start: Start existing containers
+stop: Stop running containers
+restart: Restart running containers
+build: Build images
+ps: List containers
+logs: View output from containers
+exec: Run a command in a running container
+pull: Pull images from a registry
+push: Push images to a registry
+
+
+
+Step-by-Step Learning Plan
+
+Basic Understanding of Docker and Docker Compose:
+    Docker Basics:
+        Learn about Docker containers and images.
+        Understand the Docker CLI commands, such as docker build, docker run, docker ps, docker stop, docker rm, etc.
+    Docker Compose Basics:
+        Learn how to use docker-compose.yml to define and run multi-container applications.
+        Understand services, networks, and volumes in Docker Compose.
+
+Resources:
+    Official Docker documentation.
+    Docker Compose documentation.
+
+Understanding Dockerfiles:
+    Learn how to write a Dockerfile to create custom images.
+    Understand the most common instructions, such as:
+        FROM, RUN, COPY, ADD, EXPOSE, ENTRYPOINT, CMD, ENV, VOLUME, etc.
+    Practice writing a simple Dockerfile to install basic software.
+
+Hands-on practice:
+    Create a Dockerfile that sets up a basic web server (e.g., using NGINX or Apache) and build it to see how it works.
+
+Writing and Understanding docker-compose.yml:
+    Study the structure of docker-compose.yml, including how to define services, networks, and volumes.
+    Learn how to link multiple containers and pass environment variables.
+
+Hands-on practice:
+    Write a simple docker-compose.yml file that starts an NGINX container.
+    Build and run this configuration with docker-compose up.
+
+Build a Simple Multi-Container App:
+    Create a minimal Docker Compose project that involves multiple services, such as a web server (e.g., NGINX) and a database (e.g., MariaDB).
+    Practice connecting the services through Docker Compose and make sure the database is accessible from the web server.
+
+Hands-on practice:
+    Write the docker-compose.yml and the associated Dockerfile for each service.
+    Test the setup by ensuring that each service runs and can communicate with each other.
+
+Incrementally Add Features and Learn:
+    Create Service-Specific Dockerfiles: Begin with simple services and add features gradually.
+    Configuration Files: Understand how to use configuration files such as nginx.conf for NGINX, wp-config.php for WordPress, etc.
+    Volumes and Persistent Data: Learn how to manage data persistence in your containers using Docker volumes.
+    Environment Variables: Understand how to pass environment variables to containers and how to use them in your configuration.
+
+Testing and Debugging:
+    Run Services in Isolation: Test each service separately to ensure it runs correctly before integrating it with the others.
+    Logs and Monitoring: Learn how to use docker logs and Docker Compose’s --build option for troubleshooting.
+    Use docker exec to run commands inside a running container and verify if the service is working as expected.
+
+Hands-on practice:
+    Use docker-compose up to run services one by one.
+    Run docker logs <container_name> to check for any issues in the container.
+    Use docker exec -it <container_name> sh to open an interactive shell within a container for debugging.
+
+Suggested Files to Create First:
+
+Dockerfiles:
+    Start with the Dockerfile for the basic web service (e.g., NGINX).
+    Create a Dockerfile for a simple database service (e.g., MariaDB).
+
+docker-compose.yml:
+    Write a docker-compose.yml that includes only one service at first (e.g., NGINX).
+    Gradually add more services, linking them together (e.g., NGINX and MariaDB).
+
+Configuration Files:
+    Create and test the configuration file for NGINX (e.g., nginx.conf).
+    Set up a minimal WordPress configuration (wp-config.php) and link it to the MariaDB service.
+
+Incremental Testing Approach:
+
+Test the Web Service:
+    Run docker-compose up -d and ensure that the web service (e.g., NGINX) is up and running.
+    Visit http://localhost or the mapped port to verify it's serving content correctly.
+
+Test the Database:
+    Run the database container and use docker exec to access it and verify the database is available.
+    Check if the database container is properly linked to the web service by connecting from the web container to the database.
+
+Combine and Test:
+    Add more services one at a time to your docker-compose.yml file.
+    Test each new service's integration with existing ones using make up and ensure it works.
+
+Final Tips:
+    Avoid Copy-Pasting: Understand each line of configuration you write, even if you start with examples.
+    Document Your Learning: Keep a file with notes on what you learn and any challenges you face. This will be useful for future reference and debugging.
+    Experiment: Make small changes and observe the results. Use the Docker Compose --build option to rebuild images if changes are made to the Dockerfile or code.
+    Use Docker Compose Overrides: You can create a docker-compose.override.yml for development-specific configurations without altering the main docker-compose.yml
+
+
+Docker - a way to package software so it can run on any hardware
+
+Dockerfile - blueprint for building an image, defines the environment for the program to work (ex: app versions, OS versions). Contains the code to build the docker image
+Images - template for runnig docker containers, a snapshot of a dockerfile
+Container - process that is running
+
+Steps to replicate at school:
+
+1. sudo docker pull debian:buster
+2. apt-get install mariadb-server -y
+3. go to /etc/mysql/mariadb.conf.d/50-server.cnf and change line 28 from bind-address = 127.0.0.1 to bind-address = 0.0.0.0 for any network can connect to our Mariadb
+4. service mysql start
+5. create our database and our user and give him the access to the database then FLUSH PRIVILEGES
