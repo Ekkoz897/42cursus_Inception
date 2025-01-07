@@ -4,9 +4,12 @@ Steps:
 3. Set-up VM
 4. Set-up terminal environment
 5. Update Package Manager
-6. Install Docker (29 Nov chat)
+6. Install Docker
 7. Install Docker Compose
 9. Write the files
+10. sudo docker build -t folder name
+11. sudo docker run -it name
+12.
 
 Common docker commands:
 docker build: Used to build a Docker image from a Dockerfile.
@@ -130,11 +133,3 @@ Docker - a way to package software so it can run on any hardware
 Dockerfile - blueprint for building an image, defines the environment for the program to work (ex: app versions, OS versions). Contains the code to build the docker image
 Images - template for runnig docker containers, a snapshot of a dockerfile
 Container - process that is running
-
-Steps to replicate at school:
-
-1. sudo docker pull debian:buster
-2. apt-get install mariadb-server -y
-3. go to /etc/mysql/mariadb.conf.d/50-server.cnf and change line 28 from bind-address = 127.0.0.1 to bind-address = 0.0.0.0 for any network can connect to our Mariadb
-4. service mysql start
-5. create our database and our user and give him the access to the database then FLUSH PRIVILEGES

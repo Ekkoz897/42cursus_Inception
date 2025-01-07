@@ -1,36 +1,33 @@
-NAME = inception
-NGINX_DIR = srcs/requirements/nginx
+DOCKER_COMPOSE=docker-compose -f srcs/docker-compose.yml
 
-all: ${NAME}
+all: up
 
-${NAME}:
-	@sudo mkdir -p /home/apereira/data/wordpress /home/apereira/data/mariadb
-	@sudo docker compose -f ./srcs/docker-compose.yml up -d --build
+up:
+	@sudo mkdir -p /home/ubuntu/data
+	@sudo mkdir -p /home/ubuntu/data/wordpress_data
+	@sudo mkdir -p /home/ubuntu/data/mariadb_data
+	$(DOCKER_COMPOSE) up --build
 
-down:
-	@sudo docker compose -f ./srcs/docker-compose.yml down
+ down:
+	@$(DOCKER_COMPOSE) down
 
-clean:
-	@sudo docker ps -qa | xargs -r sudo docker stop
-	@sudo docker ps -qa | xargs -r sudo docker rm
-	@sudo docker images -qa | xargs -r sudo docker rmi -f
-	@sudo docker volume ls -q | xargs -r sudo docker volume rm
-	@sudo docker network ls --format '{{.Name}}' | grep -vE 'bridge|host|none' | xargs -r sudo docker network rm
-	@sudo rm -rf /home/apereira/data/wordpress /home/apereira/data/mariadb
+ clean:
+	@$(DOCKER_COMPOSE) down --rmi all
+	@sudo rm -rf /home/ubuntu/data
 
-re: down clean all
+fclean: clean
+	@sudo docker builder prune -f
+	@sudo docker container prune -f
+	@sudo docker network prune -f
+	@sudo docker volume prune -f
+	@sudo docker image prune -a -f
+	@sudo docker system prune -a --volumes -f
 
-git:
-	find . -type f -name '*.o' -exec rm {} +
-	@git add .
-	@git commit
-	@git push
-	@clear
-	@echo "|                                                 |"
-	@echo "|                                                 |"
-	@echo "|      -------{ Commited and Pushed }-------      |"
-	@echo "|                                                 |"
-	@echo "|                                                 |"
+eval:
+	docker stop $(docker ps -qa);
+	docker rm $(docker ps -qa);
+	docker rmi -f $(docker images -qa);
+	docker volume rm $(docker volume ls -q);
+	docker network rm $(docker network ls -q) 2>/dev/null;
 
-
-.PHONY: all re down clean
+re: down fclean up

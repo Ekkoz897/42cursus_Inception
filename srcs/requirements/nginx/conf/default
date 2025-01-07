@@ -1,0 +1,44 @@
+server {
+# Listen on port 443 with SSL enabled (IPv4 and IPv6)
+    listen 443 ssl;
+    listen [::]:443 ssl;
+
+# Define the server name (domain and subdomain)
+    server_name DOMAIN_NAME www.DOMAIN_NAME;
+
+# SSL certificate and private key paths
+    ssl_certificate my_cert;
+    ssl_certificate_key my_key;
+    ssl_protocols TLSv1.3;
+
+# Define the root directory for website content and default index files
+    root /var/www/html;
+    index index.php index.html;
+
+# Location block to allow Cross-Origin Resource Sharing (CORS) for JS, CSS, and font files
+    location ~* \.(js|css|woff2)$ {
+        add_header 'Access-Control-Allow-Origin' 'https://apereira.42.fr';
+        add_header 'Access-Control-Allow-Methods' 'GET, OPTIONS';
+        add_header 'Access-Control-Allow-Headers' 'Origin, X-Requested-With, Content-Type, Accept';
+    }
+
+# Main location block for handling WordPress
+# try_files attempts to serve the requested file, fallback to index.php if not found
+    location / {
+        try_files $uri $uri/ /index.php?$args;
+    }
+
+# Location block for PHP file processing
+# Includes standard FastCGI configuration for PHP
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass wordpress:9000;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+
+# Block access to hidden files, such as .htaccess
+    location ~ /\.ht {
+        deny all;
+    }
+}
