@@ -9,7 +9,7 @@ Steps:
 9. Write the files
 10. sudo docker build -t folder name
 11. sudo docker run -it name
-12.
+
 
 Common docker commands:
 docker build: Used to build a Docker image from a Dockerfile.
@@ -54,12 +54,8 @@ Resources:
 
 Understanding Dockerfiles:
     Learn how to write a Dockerfile to create custom images.
-    Understand the most common instructions, such as:
-        FROM, RUN, COPY, ADD, EXPOSE, ENTRYPOINT, CMD, ENV, VOLUME, etc.
-    Practice writing a simple Dockerfile to install basic software.
-
-Hands-on practice:
-    Create a Dockerfile that sets up a basic web server (e.g., using NGINX or Apache) and build it to see how it works.
+Understand the most common instructions, such as:
+    FROM, RUN, COPY, ADD, EXPOSE, ENTRYPOINT, CMD, ENV, VOLUME, etc.
 
 Writing and Understanding docker-compose.yml:
     Study the structure of docker-compose.yml, including how to define services, networks, and volumes.
@@ -73,20 +69,11 @@ Build a Simple Multi-Container App:
     Create a minimal Docker Compose project that involves multiple services, such as a web server (e.g., NGINX) and a database (e.g., MariaDB).
     Practice connecting the services through Docker Compose and make sure the database is accessible from the web server.
 
-Hands-on practice:
-    Write the docker-compose.yml and the associated Dockerfile for each service.
-    Test the setup by ensuring that each service runs and can communicate with each other.
-
 Incrementally Add Features and Learn:
     Create Service-Specific Dockerfiles: Begin with simple services and add features gradually.
     Configuration Files: Understand how to use configuration files such as nginx.conf for NGINX, wp-config.php for WordPress, etc.
     Volumes and Persistent Data: Learn how to manage data persistence in your containers using Docker volumes.
     Environment Variables: Understand how to pass environment variables to containers and how to use them in your configuration.
-
-Testing and Debugging:
-    Run Services in Isolation: Test each service separately to ensure it runs correctly before integrating it with the others.
-    Logs and Monitoring: Learn how to use docker logs and Docker Compose’s --build option for troubleshooting.
-    Use docker exec to run commands inside a running container and verify if the service is working as expected.
 
 Hands-on practice:
     Use docker-compose up to run services one by one.
@@ -107,29 +94,7 @@ Configuration Files:
     Create and test the configuration file for NGINX (e.g., nginx.conf).
     Set up a minimal WordPress configuration (wp-config.php) and link it to the MariaDB service.
 
-Incremental Testing Approach:
-
-Test the Web Service:
-    Run docker-compose up -d and ensure that the web service (e.g., NGINX) is up and running.
-    Visit http://localhost or the mapped port to verify it's serving content correctly.
-
-Test the Database:
-    Run the database container and use docker exec to access it and verify the database is available.
-    Check if the database container is properly linked to the web service by connecting from the web container to the database.
-
-Combine and Test:
-    Add more services one at a time to your docker-compose.yml file.
-    Test each new service's integration with existing ones using make up and ensure it works.
-
-Final Tips:
-    Avoid Copy-Pasting: Understand each line of configuration you write, even if you start with examples.
-    Document Your Learning: Keep a file with notes on what you learn and any challenges you face. This will be useful for future reference and debugging.
-    Experiment: Make small changes and observe the results. Use the Docker Compose --build option to rebuild images if changes are made to the Dockerfile or code.
-    Use Docker Compose Overrides: You can create a docker-compose.override.yml for development-specific configurations without altering the main docker-compose.yml
-
-
 Docker - a way to package software so it can run on any hardware
-
 Dockerfile - blueprint for building an image, defines the environment for the program to work (ex: app versions, OS versions). Contains the code to build the docker image
 Images - template for runnig docker containers, a snapshot of a dockerfile
 Container - process that is running
