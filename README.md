@@ -87,3 +87,13 @@ Docker offers a standardized environment for developing, testing, and deploying 
     - Docker Daemon: A background process that manages Docker containers.
     - Dor Client: A command-line interface for interacting with the Docker daemon.
 - **App :** The application running in a container, isolated from other containers.
+
+---
+
+## Resources
+
+- [Docker Documentation](https://docs.docker.com/)
+- [Docker Compose Documentation](https://docs.docker.com/compose/)
+- [NGINX with TLS](https://nginx.org/en/docs/http/configuring_https_servers.html)
+- [WordPress Configuration](https://wordpress.org/support/article/editing-wp-config-php/)
+- [MariaDB Documentation](https://mariadb.com/kb/en/)
